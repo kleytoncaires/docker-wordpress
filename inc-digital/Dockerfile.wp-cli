@@ -1,0 +1,16 @@
+# Use a imagem oficial do WP-CLI
+FROM wordpress:cli
+
+# Defina o diretório de trabalho para o diretório do tema do WordPress
+WORKDIR /var/www/html
+
+# Execute os comandos do WP-CLI que você precisa
+RUN wp core install --url=http://localhost:8090 --title="Título do Seu Site" --admin_user=seuusuario --admin_password=suasenha --admin_email=seuemail@exemplo.com
+RUN wp plugin install contact-form-7 contact-form-cfdb7 tinymce-advanced custom-post-type-ui wordpress-seo wp-mail-smtp wp-migrate-db --activate
+RUN wp plugin install "http://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=b3JkZXJfaWQ9Nzg5MDd8dHlwZT1kZXZlbG9wZXJ8ZGF0ZT0yMDE2LTA0LTA1IDEzOjQwOjQw" --activate
+RUN wp language core install pt_BR
+RUN wp site switch-language pt_BR
+RUN wp option update timezone_string 'America/Sao_Paulo'
+RUN wp post create --post_type=page --post_title='Home' --post_status=publish
+RUN wp option update show_on_front page
+RUN wp theme activate inc-digital

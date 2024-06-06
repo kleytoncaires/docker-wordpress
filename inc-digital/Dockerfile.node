@@ -1,0 +1,14 @@
+# Use a imagem base Node.js
+FROM node:16.16.0
+
+# Define o diretório de trabalho
+WORKDIR /var/www/html/wp-content/themes/inc-digital
+
+# Instala o Gulp globalmente
+RUN npm install -g gulp
+
+# Expõe a porta 3000 para que ela possa ser acessada fora do contêiner
+EXPOSE 3000
+
+# Comando padrão para iniciar sua aplicação
+CMD npm install && npm start
